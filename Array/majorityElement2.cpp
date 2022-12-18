@@ -6,58 +6,61 @@ using namespace std;
 
 vector<int> majorityElement(vector<int> &nums)
 {
-    unordered_map<int, int> candidates = {{0, 0}, {1, 0}};
-    unordered_map<int, int>::iterator it;
+    int n1 = 0;
+    int c1 = 0;
+    int n2 = 0;
+    int c2 = 0;
+
     int size = nums.size() / 3;
-    vector<int> res;
-    int min_;
-    int minNum;
-    set<int> s;
 
     for (auto i : nums)
     {
-        it = candidates.find(i);
-        if (it != candidates.end())
+        if (n1 == i)
+            c1++;
+        else if (n2 == i)
+            c2++;
+        else if (c1 == 0)
         {
-            it->second++;
-            if (it->second > size)
-                s.insert(it->first);
+            n1 = i;
+            c1 = 1;
+        }
+        else if (c2 == 0)
+        {
+            n2 = i;
+            c2 = i;
         }
         else
         {
-            min_ = INT_MAX;
-            for (auto j : candidates)
-            {
-                if (min_ < j.second)
-                {
-                    min_ = j.second;
-                    minNum = j.first;
-                }
-            }
-            candidates.erase(minNum);
-            candidates.insert(pair<int, int>(i, 1));
-            if (size == 0)
-                s.insert(i);
+            c1--;
+            c2--;
         }
     }
-
-    for (auto i : s)
-        res.push_back(i);
+    c1 = 0;
+    c2 = 0;
+    for (auto i : nums)
+    {
+        if (i == n1)
+            c1++;
+        else if (i == n2)
+            c2++;
+    }
+    vector<int> res;
+    if (c1 > size)
+        res.push_back(n1);
+    if (c2 > size)
+        res.push_back(n2);
 
     return res;
 }
 
 int main()
 {
-    int n, x;
+    int n;
     cin >> n;
-    vector<int> vec;
+    vector<int> vec(n);
 
     for (int i = 0; i < n; i++)
-    {
-        cin >> x;
-        vec.push_back(x);
-    }
+        cin >> vec[i];
 
     vector<int> res = majorityElement(vec);
     for (auto i : res)

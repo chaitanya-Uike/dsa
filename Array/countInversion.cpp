@@ -2,56 +2,61 @@
 
 using namespace std;
 
-void merge(int a[], int l, int h, int m)
+void merge(long long arr[], long long l, long long m, long long h, long long int &count)
 {
-    vector<int> temp;
-    int i = l, j = m + 1;
+    int i = l;
+    int j = m + 1;
+    int k = 0;
+    int temp[h - l + 1];
 
     while (i <= m && j <= h)
     {
-        if (a[i] < a[j])
-            temp.push_back(a[i++]);
+        if (arr[i] < arr[j])
+            temp[k++] = arr[i++];
         else
         {
-            temp.push_back(a[j++]);
-            cout << m - i + 1 << endl;
+            temp[k++] = arr[j++];
+            count += m - i + 1;
         }
     }
 
     while (i <= m)
-        temp.push_back(a[i++]);
+        temp[k++] = arr[i++];
     while (j <= h)
-        temp.push_back(a[j++]);
+        temp[k++] = arr[j++];
 
-    int k = 0;
-    for (int i = l; i <= h; i++)
-        a[i] = temp[k++];
+    k = 0;
+    while (l <= h)
+        arr[l++] = temp[k++];
 }
 
-void mergeSort(int a[], int l, int h)
+void mergeSort(long long arr[], long long l, long long h, long long int &count)
 {
-    if (l >= h)
-        return;
+    if (l < h)
+    {
+        long long m = l + (h - l) / 2;
+        mergeSort(arr, l, m, count);
+        mergeSort(arr, m + 1, h, count);
+        merge(arr, l, m, h, count);
+    }
+}
 
-    int m = (l + h) / 2;
-    mergeSort(a, l, m);
-    mergeSort(a, m + 1, h);
-    merge(a, l, h, m);
+long long int inversionCount(long long arr[], long long N)
+{
+    long long int count = 0;
+    mergeSort(arr, 0, N - 1, count);
+    return count;
 }
 
 int main()
 {
-    int n;
+    long long n;
     cin >> n;
-    int a[n];
+    long long arr[n];
 
     for (int i = 0; i < n; i++)
-        cin >> a[i];
+        cin >> arr[i];
 
-    mergeSort(a, 0, n - 1);
-
-    for (int i = 0; i < n; i++)
-        cout << a[i] << " ";
-
+    cout << inversionCount(arr, n);
     return 0;
 }

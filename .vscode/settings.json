@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "*.ejs": "html",
+    "ostream": "cpp",
+    "span": "cpp",
+    "array": "cpp",
+    "tuple": "cpp",
+    "utility": "cpp",
+    "variant": "cpp",
+    "new": "cpp",
+    "ratio": "cpp"
+  }
+}

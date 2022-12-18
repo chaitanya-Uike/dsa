@@ -11,7 +11,7 @@ int LongestSubsetWithZeroSum(vector<int> arr)
     {
         cSum += arr[i];
         if (cSum == 0)
-            max_ = max(max_, i + 1);
+            max_ = i + 1;
         else if (hash_map.find(cSum) != hash_map.end())
             max_ = max(max_, i - hash_map.find(cSum)->second);
         else
