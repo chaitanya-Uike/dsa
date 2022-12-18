@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void deleteMiddle(stack<int> &s, int n)
+void deleteMiddle(stack<int> &s, int n) 
 {
     if (n == 0)
         return;
