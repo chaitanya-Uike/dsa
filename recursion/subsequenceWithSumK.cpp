@@ -67,11 +67,11 @@ int main()
     for (auto i : res2)
         cout << i << " ";
 
-    // for (auto i : res)
-    // {
-    //     for (auto j : i)
-    //         cout << j << " ";
-    //     cout << endl;
-    // }
+    for (auto i : res)
+    {
+        for (auto j : i)
+            cout << j << " ";
+        cout << endl;
+    }
     return 0;
 }
